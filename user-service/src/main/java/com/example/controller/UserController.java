@@ -13,6 +13,7 @@ public class UserController {
     UserService service;
     @RequestMapping("/user/{uid}")
     public User findUserById(@PathVariable("uid")Integer uid){
+        System.out.println("我被调用了！");
         return service.getUserById(uid);
     }
 }
