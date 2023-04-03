@@ -2,6 +2,8 @@ package com.example.controller;
 
 import com.example.entity.UserBorrowDetail;
 import com.example.service.BorrowService;
+import com.example.service.client.BookClient;
+import com.example.service.client.UserClient;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
