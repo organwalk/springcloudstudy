@@ -1,0 +1,15 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: eurekaserver
+eureka:
+  instance:
+    hostname: eureka01
+  client:
+    # 去掉register-with-eureka: false选项，让Eureka服务自己注册到其它Eureka服务器，这样才能相互启用
+    fetch-registry: false
+    service-url:
+      # 这里填写其它Eureka服务器的地址
+      defaultZone: http://eureka02:8802/eureka
+
