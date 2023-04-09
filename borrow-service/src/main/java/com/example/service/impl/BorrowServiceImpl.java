@@ -1,5 +1,7 @@
 package com.example.service.impl;
 
+import com.example.client.BookClient;
+import com.example.client.UserClient;
 import com.example.entity.Book;
 import com.example.entity.User;
 import com.example.entity.Borrow;
@@ -17,14 +19,18 @@ import java.util.stream.Collectors;
 public class BorrowServiceImpl implements BorrowService {
     @Resource
     BorrowMapper mapper;
+    @Resource
+    UserClient userClient;
+    @Resource
+    BookClient bookClient;
     @Override
     public UserBorrowDetail getUserBoorowDetailByUid(Integer uid) {
         List<Borrow> borrow = mapper.getBorrowByUid(uid);
-        RestTemplate template = new RestTemplate();
-        User user = template.getForObject("http://localhost:8301/user/"+uid,User.class);
+
+        User user = userClient.findUserById(uid);
         List<Book> bookList = borrow
                 .stream()
-                .map(b->template.getForObject("http://localhost:8101/book/"+b.getBid(), Book.class))
+                .map(b->bookClient.findBookById(b.getBid()))
                 .collect(Collectors.toList());
         return new UserBorrowDetail(user,bookList);
     }
